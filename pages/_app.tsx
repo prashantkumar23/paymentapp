@@ -3,6 +3,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { AppProps } from "next/app";
 import { useState } from "react";
+import { RouterTransition } from "../components/RouterTransition";
 
 function MyApp({
   Component,
@@ -21,6 +22,7 @@ function MyApp({
         colorScheme: "dark",
       }}
     >
+      <RouterTransition />
       <SessionContextProvider
         supabaseClient={supabase}
         initialSession={pageProps.initialSession}

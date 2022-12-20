@@ -67,28 +67,28 @@ const Provider = ({ children }: any) => {
       });
     };
 
-    if (user) {
-      const channel = supabase
-        .channel("public:profile")
-        .on(
-          "postgres_changes",
-          {
-            event: "UPDATE",
-            schema: "public",
-            table: "profile",
-            filter: `id=eq.${user.id}`,
-          },
-          (payload) => {
-            console.log("Change received!", payload);
-            setUser({ ...user, ...payload.new });
-          }
-        )
-        .subscribe();
+    // if (user) {
+    //   const channel = supabase
+    //     .channel("public:profile")
+    //     .on(
+    //       "postgres_changes",
+    //       {
+    //         event: "UPDATE",
+    //         schema: "public",
+    //         table: "profile",
+    //         filter: `id=eq.${user.id}`,
+    //       },
+    //       (payload) => {
+    //         console.log("Change received!", payload);
+    //         setUser({ ...user, ...payload.new });
+    //       }
+    //     )
+    //     .subscribe();
 
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    }
+    //   return () => {
+    //     supabase.removeChannel(channel);
+    //   };
+    // }
 
     makeCall();
   }, [user]);

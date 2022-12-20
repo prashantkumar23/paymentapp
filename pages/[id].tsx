@@ -1,13 +1,31 @@
+import { useState, useEffect } from "react";
 import { Container, Text, Title } from "@mantine/core";
+import Player from "react-player";
 import { supabase } from "../utils/supabase";
 
 export default function LessonDetails({ lesson }: any) {
-  console.log(lesson);
+  const [premiumContent, setPremiumContent] = useState(undefined);
+
+  const getPremiumContent = async () => {
+    const { data } = await supabase
+      .from("premium_content")
+      .select("*")
+      .eq("id", lesson.id)
+      .single();
+    setPremiumContent(data);
+  };
+
+  useEffect(() => {
+    getPremiumContent();
+  }, []);
+
+  console.log(premiumContent);
 
   return (
     <Container size={"md"}>
       <Title>{lesson.title}</Title>
       <Text>{lesson.description}</Text>
+      {premiumContent && <Player url={premiumContent.video_url} />}
     </Container>
   );
 }

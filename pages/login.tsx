@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { Text } from "@mantine/core";
-import { supabase } from "../utils/supabase";
+import { Button, Container, Text } from "@mantine/core";
+import { useUser } from "../context/user";
 
 export default function Login() {
-  useEffect(() => {
-    supabase.auth.signInWithOAuth({
-      provider: "google",
-    });
-  }, []);
+  const { login } = useUser();
 
-  return <Text>Login Page</Text>;
+  return (
+    <Container>
+      <Button onClick={() => login()}>Login</Button>
+    </Container>
+  );
 }

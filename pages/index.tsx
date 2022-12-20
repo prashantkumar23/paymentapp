@@ -1,6 +1,7 @@
 import { Card, Container, Grid, Stack, Text } from "@mantine/core";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useUser } from "../context/user";
 import { supabase } from "../utils/supabase";
 
 // 4242424242424242
@@ -8,14 +9,9 @@ import { supabase } from "../utils/supabase";
 // 4000002500003155
 
 export default function Home({ lessons }: any) {
-  useEffect(() => {
-    const getUserFromSupabase = async () => {
-      const user = await supabase.auth.getUser();
-      console.log("User", user);
-    };
+  const { user } = useUser();
 
-    getUserFromSupabase();
-  }, []);
+  console.log("User", user);
 
   return (
     <Container size={"md"} mt={50}>

@@ -3,7 +3,9 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { AppProps } from "next/app";
 import { useState } from "react";
+import Nav from "../components/Nav";
 import { RouterTransition } from "../components/RouterTransition";
+import Provider from "../context/user";
 
 function MyApp({
   Component,
@@ -14,22 +16,25 @@ function MyApp({
   const [supabase] = useState(() => createBrowserSupabaseClient());
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        /** Put your mantine theme override here */
-        colorScheme: "dark",
-      }}
-    >
-      <RouterTransition />
-      <SessionContextProvider
-        supabaseClient={supabase}
-        initialSession={pageProps.initialSession}
+    <Provider>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          /** Put your mantine theme override here */
+          colorScheme: "dark",
+        }}
       >
-        <Component {...pageProps} />
-      </SessionContextProvider>
-    </MantineProvider>
+        <RouterTransition />
+        <SessionContextProvider
+          supabaseClient={supabase}
+          initialSession={pageProps.initialSession}
+        >
+          <Nav />
+          <Component {...pageProps} />
+        </SessionContextProvider>
+      </MantineProvider>
+    </Provider>
   );
 }
 export default MyApp;

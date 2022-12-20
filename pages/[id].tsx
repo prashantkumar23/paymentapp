@@ -19,7 +19,7 @@ export default function LessonDetails({ lesson }: any) {
     getPremiumContent();
   }, []);
 
-  console.log(premiumContent);
+  // console.log(premiumContent);
 
   return (
     <Container size={"md"}>

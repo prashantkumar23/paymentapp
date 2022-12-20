@@ -21,7 +21,7 @@ export default function Pricing({ plans }: any) {
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
     );
     await stripe?.redirectToCheckout({ sessionId: data.id });
-    console.log(data);
+    // console.log(data);
   };
 
   return (

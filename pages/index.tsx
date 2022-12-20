@@ -11,7 +11,7 @@ import { supabase } from "../utils/supabase";
 export default function Home({ lessons }: any) {
   const { user } = useUser();
 
-  console.log("User", user);
+  // console.log("User", user);
 
   return (
     <Container size={"md"} mt={50}>

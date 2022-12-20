@@ -25,6 +25,7 @@ export default function LessonDetails({ lesson }: any) {
     <Container size={"md"}>
       <Title>{lesson.title}</Title>
       <Text>{lesson.description}</Text>
+      {/* @ts-ignore */}
       {premiumContent && <Player url={premiumContent.video_url} />}
     </Container>
   );

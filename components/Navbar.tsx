@@ -104,26 +104,14 @@ let links = [
   {
     link: "/profile",
     label: "Profile",
-    type: "link",
-    callback: undefined,
   },
   {
     link: "/",
     label: "Home",
-    type: "link",
-    callback: undefined,
   },
   {
     link: "/pricing",
     label: "Pricing",
-    type: "link",
-    callback: undefined,
-  },
-  {
-    link: "",
-    label: "Login",
-    type: "button",
-    callback: undefined,
   },
 ];
 
@@ -136,40 +124,63 @@ export function HeaderResponsive() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading) {
       links = links.filter((ele) => ele.link !== "/profile");
       const items = links.map((link) => {
-        switch (link.type) {
-          case "link":
-            return (
-              <a
-                key={link.label}
-                href={link.link}
-                className={cx(classes.link, {
-                  [classes.linkActive]: active === link.link,
-                })}
-                onClick={(event) => {
-                  event.preventDefault();
-                  setActive(link.link);
-                  close();
-                  router.push(link.link);
-                }}
-              >
-                {link.label}
-              </a>
-            );
-          case "button":
-            return (
-              <Button onClick={() => login} size="xs" mt={5} ml={12}>
-                {link.label}
-              </Button>
-            );
-        }
+        return (
+          <a
+            key={link.label}
+            href={link.link}
+            className={cx(classes.link, {
+              [classes.linkActive]: active === link.link,
+            })}
+            onClick={(event) => {
+              event.preventDefault();
+              setActive(link.link);
+              close();
+              router.push(link.link);
+            }}
+          >
+            {link.label}
+          </a>
+        );
       });
+
+      items.push(
+        <Button onClick={() => login()} size="xs" mt={5} ml={12}>
+          Login
+        </Button>
+      );
       //   @ts-ignore
       setItems(items);
+      return;
     }
-  }, [user]);
+
+    if (user && !isLoading) {
+      const NewItems = links.map((link) => {
+        return (
+          <a
+            key={link.label}
+            href={link.link}
+            className={cx(classes.link, {
+              [classes.linkActive]: active === link.link,
+            })}
+            onClick={(event) => {
+              event.preventDefault();
+              setActive(link.link);
+              close();
+              router.push(link.link);
+            }}
+          >
+            {link.label}
+          </a>
+        );
+      });
+
+      //   @ts-ignore
+      setItems(NewItems);
+    }
+  }, [user, isLoading]);
 
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>

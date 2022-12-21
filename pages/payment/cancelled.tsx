@@ -1,5 +1,11 @@
-import { Title } from "@mantine/core";
+import { Container, Title } from "@mantine/core";
 
 export default function CancelledPayment() {
-  <Title>Your payment is cancelled</Title>;
+  return (
+    <Container size="xs">
+      <Title align="center">
+        Your payment is cancelled. You are not charged
+      </Title>
+    </Container>
+  );
 }

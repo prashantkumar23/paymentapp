@@ -1,6 +1,5 @@
-import { Button, Container } from "@mantine/core";
+import { Button, Container, Stack, Text } from "@mantine/core";
 import cookie from "cookie";
-import { Fragment } from "react";
 import axios from "axios";
 
 import { useUser } from "../context/user";
@@ -10,6 +9,7 @@ import { useRouter } from "next/router";
 export default function Profile() {
   const router = useRouter();
   const { logout, user, isLoading } = useUser();
+  console.log("User", user);
 
   const loadPortal = async () => {
     const { data } = await axios.get("/api/portal");
@@ -17,19 +17,30 @@ export default function Profile() {
   };
 
   return (
-    <Container>
+    <Container size={"xs"}>
       {!isLoading && (
-        <Fragment>
-          {user?.is_subscribed
-            ? `Subscribed: ${user.interval}`
-            : "Not Subscribed"}
-          <Button mt={10} onClick={loadPortal}>
+        <Stack spacing={5}>
+          <Text>{user.name}</Text>
+          <Text>{user.email}</Text>
+          <Text fs={"italic"}>
+            {user?.is_subscribed
+              ? `Subscribed: ${user.interval}`
+              : "Not Subscribed"}
+          </Text>
+          <Button
+            mt={10}
+            onClick={loadPortal}
+            size="xs"
+            sx={{ width: "max-content" }}
+          >
             Manage Subscription
           </Button>
-        </Fragment>
+        </Stack>
       )}
 
-      <Button onClick={() => logout()}>Logout</Button>
+      <Button onClick={() => logout()} size="xs" mt={30}>
+        Logout
+      </Button>
     </Container>
   );
 }

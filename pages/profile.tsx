@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 export default function Profile() {
   const router = useRouter();
   const { logout, user, isLoading } = useUser();
-  console.log("User", user);
 
   const loadPortal = async () => {
     const { data } = await axios.get("/api/portal");

@@ -142,7 +142,7 @@ export function HeaderResponsive() {
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <Text fw={700}>App Name</Text>
+        <Text fw={700}>SASS</Text>
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <Link

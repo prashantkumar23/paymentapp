@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Text, Title } from "@mantine/core";
 import Player from "react-player";
 import { supabase } from "../utils/supabase";
+import Link from "next/link";
 
 export default function LessonDetails({ lesson }: any) {
   const [premiumContent, setPremiumContent] = useState(undefined);
@@ -24,8 +25,12 @@ export default function LessonDetails({ lesson }: any) {
   return (
     <Container size={"md"}>
       <Title align="center">{lesson.title}</Title>
+      <Text color={"dimmed"} fs="italic" mt={10} size={12} align="center">
+        {!premiumContent &&
+          `This article associate a premium video to subscribed user. Please subscribed to view`}
+      </Text>
       {/* @ts-ignore */}
-      {premiumContent && <Player url={premiumContent.video_url} />}
+      {premiumContent && <Player url={premiumContent.video_url} controls />}
       <Text align="justify" mt={20}>
         {lesson.description}
       </Text>

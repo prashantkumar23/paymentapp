@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Container, Text, Title } from "@mantine/core";
+import { Container, Text, Title, Center } from "@mantine/core";
 import Player from "react-player";
 import { supabase } from "../utils/supabase";
 import Link from "next/link";
 
 export default function LessonDetails({ lesson }: any) {
   const [premiumContent, setPremiumContent] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPremiumContent = async () => {
     const { data } = await supabase
@@ -17,7 +18,7 @@ export default function LessonDetails({ lesson }: any) {
   };
 
   useEffect(() => {
-    getPremiumContent();
+    getPremiumContent().then(() => setIsLoading(false));
   }, []);
 
   // console.log(premiumContent);
@@ -25,13 +26,21 @@ export default function LessonDetails({ lesson }: any) {
   return (
     <Container size={"md"}>
       <Title align="center">{lesson.title}</Title>
-      <Text color={"dimmed"} fs="italic" mt={10} size={12} align="center">
-        {!premiumContent &&
-          `This article associate a premium video to subscribed user. Please subscribed to view`}
-      </Text>
-      {/* @ts-ignore */}
-      {premiumContent && <Player url={premiumContent.video_url} controls />}
-      <Text align="justify" mt={20}>
+      {!isLoading && (
+        <Text color={"dimmed"} fs="italic" mt={10} size={12} align="center">
+          {!premiumContent &&
+            `This article associate a premium video to subscribed user. Please subscribed to view`}
+        </Text>
+      )}
+
+      {premiumContent && (
+        <Center>
+          {/* @ts-ignore */}
+          <Player url={premiumContent.video_url} controls />{" "}
+        </Center>
+      )}
+
+      <Text align="justify" mt={20} mb={20}>
         {lesson.description}
       </Text>
     </Container>

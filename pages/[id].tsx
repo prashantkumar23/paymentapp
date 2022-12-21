@@ -23,10 +23,12 @@ export default function LessonDetails({ lesson }: any) {
 
   return (
     <Container size={"md"}>
-      <Title>{lesson.title}</Title>
-      <Text>{lesson.description}</Text>
+      <Title align="center">{lesson.title}</Title>
       {/* @ts-ignore */}
       {premiumContent && <Player url={premiumContent.video_url} />}
+      <Text align="justify" mt={20}>
+        {lesson.description}
+      </Text>
     </Container>
   );
 }

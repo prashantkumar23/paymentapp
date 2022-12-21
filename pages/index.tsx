@@ -16,13 +16,12 @@ export default function Home({ lessons }: any) {
   return (
     <Container size={"md"} mt={50}>
       <Grid>
-        {lessons.map(({ id, title, description }: any) => (
-          <Grid.Col key={id} span={4}>
+        {lessons.map(({ id, title }: any) => (
+          <Grid.Col key={id} xs={12} sm={6} md={3}>
             <Link href={`/${id}`} style={{ textDecoration: "none" }}>
-              <Card>
+              <Card withBorder radius={"sm"}>
                 <Stack>
                   <Text weight={500}>{title}</Text>
-                  <Text>{description}</Text>
                 </Stack>
               </Card>
             </Link>

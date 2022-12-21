@@ -4,6 +4,7 @@ import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { AppProps } from "next/app";
 import { useState } from "react";
 import Nav from "../components/Nav";
+import { HeaderResponsive } from "../components/Navbar";
 import { RouterTransition } from "../components/RouterTransition";
 import Provider from "../context/user";
 
@@ -30,7 +31,8 @@ function MyApp({
           supabaseClient={supabase}
           initialSession={pageProps.initialSession}
         >
-          <Nav />
+          {/* <Nav /> */}
+          <HeaderResponsive />
           <Component {...pageProps} />
         </SessionContextProvider>
       </MantineProvider>

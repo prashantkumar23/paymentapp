@@ -1,4 +1,4 @@
-import { Button, Card, Container, Grid, Text } from "@mantine/core";
+import { Button, Card, Container, Grid, Stack, Text } from "@mantine/core";
 import { Fragment } from "react";
 import initStripe from "stripe";
 import axios from "axios";
@@ -30,28 +30,37 @@ export default function Pricing({ plans }: any) {
         {plans.map((plan: any) => {
           return (
             <Grid.Col span={6} key={plan.name}>
-              <Card>
-                <Text>{plan.name}</Text>
-                <Text>
-                  ₹ {plan.price / 100} / {plan.interval}{" "}
-                </Text>
-                {!isLoading && (
+              <Card
+                withBorder
+                radius={"sm"}
+                sx={{ minHeight: 200, position: "relative" }}
+              >
+                <Stack>
                   <Fragment>
-                    {showSubscribeButton && (
-                      <Button onClick={() => processSubscription(plan.id)}>
-                        Subscribe
-                      </Button>
-                    )}
-                    {showCreateAccountButton && (
-                      <Button onClick={() => login()}>Create Account</Button>
-                    )}
-                    {showManageSubscription && (
-                      <Button onClick={() => router.push("/profile")}>
-                        Manage Subscription
-                      </Button>
-                    )}
+                    <Text>{plan.name}</Text>
+                    <Text>
+                      ₹ {plan.price / 100} / {plan.interval}{" "}
+                    </Text>
                   </Fragment>
-                )}
+
+                  {!isLoading && (
+                    <div style={{ position: "absolute", bottom: 10 }}>
+                      {showSubscribeButton && (
+                        <Button onClick={() => processSubscription(plan.id)}>
+                          Subscribe
+                        </Button>
+                      )}
+                      {showCreateAccountButton && (
+                        <Button onClick={() => login()}>Create Account</Button>
+                      )}
+                      {showManageSubscription && (
+                        <Button onClick={() => router.push("/profile")}>
+                          Manage Subscription
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </Stack>
               </Card>
             </Grid.Col>
           );

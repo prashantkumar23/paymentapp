@@ -36,6 +36,7 @@ const Provider = ({ children }: any) => {
   const logout = async () => {
     await supabase.auth.signOut();
     router.push("/");
+    router.reload();
   };
 
   const getUserProfileInfo = async () => {

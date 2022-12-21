@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createStyles,
   Header,
@@ -8,6 +8,7 @@ import {
   Paper,
   Transition,
   Text,
+  Button,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
@@ -99,18 +100,30 @@ interface HeaderResponsiveProps {
   links: { link: string; label: string }[];
 }
 
-const links = [
+let links = [
   {
     link: "/profile",
     label: "Profile",
+    type: "link",
+    callback: undefined,
   },
   {
     link: "/",
     label: "Home",
+    type: "link",
+    callback: undefined,
   },
   {
     link: "/pricing",
     label: "Pricing",
+    type: "link",
+    callback: undefined,
+  },
+  {
+    link: "",
+    label: "Login",
+    type: "button",
+    callback: undefined,
   },
 ];
 
@@ -120,24 +133,43 @@ export function HeaderResponsive() {
   const [active, setActive] = useState(router.pathname);
   const { classes, cx } = useStyles();
   const { user, isLoading, login } = useUser();
+  const [items, setItems] = useState([]);
 
-  const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={cx(classes.link, {
-        [classes.linkActive]: active === link.link,
-      })}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(link.link);
-        close();
-        router.push(link.link);
-      }}
-    >
-      {link.label}
-    </a>
-  ));
+  useEffect(() => {
+    if (!user) {
+      links = links.filter((ele) => ele.link !== "/profile");
+      const items = links.map((link) => {
+        switch (link.type) {
+          case "link":
+            return (
+              <a
+                key={link.label}
+                href={link.link}
+                className={cx(classes.link, {
+                  [classes.linkActive]: active === link.link,
+                })}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setActive(link.link);
+                  close();
+                  router.push(link.link);
+                }}
+              >
+                {link.label}
+              </a>
+            );
+          case "button":
+            return (
+              <Button onClick={() => login} size="xs" mt={5} ml={12}>
+                {link.label}
+              </Button>
+            );
+        }
+      });
+      //   @ts-ignore
+      setItems(items);
+    }
+  }, [user]);
 
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>

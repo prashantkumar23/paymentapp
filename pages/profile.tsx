@@ -1,4 +1,4 @@
-import { Button, Container, Stack, Text } from "@mantine/core";
+import { Avatar, Button, Container, Stack, Text } from "@mantine/core";
 import cookie from "cookie";
 import axios from "axios";
 
@@ -20,7 +20,8 @@ export default function Profile() {
     <Container size={"xs"}>
       {!isLoading && (
         <Stack spacing={5}>
-          <Text>{user.name}</Text>
+          <Avatar size={50} src={user.user_metadata.avatar_url} radius={"lg"} />
+          <Text>{user.user_metadata.name}</Text>
           <Text>{user.email}</Text>
           <Text fs={"italic"}>
             {user?.is_subscribed

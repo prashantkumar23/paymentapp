@@ -96,10 +96,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderResponsiveProps {
-  links: { link: string; label: string }[];
-}
-
 let links = [
   {
     link: "/profile",
@@ -185,7 +181,7 @@ export function HeaderResponsive() {
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <Text fw={700}>SASS</Text>
+        <Text fw={700}>SASS-APP</Text>
         <Group spacing={5} className={classes.links}>
           {/* {items} */}
           <Link

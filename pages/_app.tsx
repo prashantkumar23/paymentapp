@@ -3,7 +3,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { AppProps } from "next/app";
 import { useState } from "react";
-import Nav from "../components/Nav";
+import Footer from "../components/Footer";
 import { HeaderResponsive } from "../components/Navbar";
 import { RouterTransition } from "../components/RouterTransition";
 import Provider from "../context/user";
@@ -31,9 +31,9 @@ function MyApp({
           supabaseClient={supabase}
           initialSession={pageProps.initialSession}
         >
-          {/* <Nav /> */}
           <HeaderResponsive />
           <Component {...pageProps} />
+          {/* <Footer /> */}
         </SessionContextProvider>
       </MantineProvider>
     </Provider>

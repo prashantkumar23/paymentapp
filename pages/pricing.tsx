@@ -29,7 +29,7 @@ export default function Pricing({ plans }: any) {
       <Grid>
         {plans.map((plan: any) => {
           return (
-            <Grid.Col span={6} key={plan.name}>
+            <Grid.Col xs={12} sm={6} key={plan.name}>
               <Card
                 withBorder
                 radius={"sm"}
